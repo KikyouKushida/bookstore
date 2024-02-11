@@ -2,9 +2,9 @@
 
 const int B = 500, L = 17;
 char space = ' ';
-std::fstream file, leif;
+std::fstream file, leif, Head;
 std::ifstream ifile;
-std::string file_name = "f.txt", leif_name = "g.txt";
+std::string file_name = "f.txt", leif_name = "g.txt", Head_name = "h.txt";
 
 struct par{
   std::string s;
@@ -139,7 +139,7 @@ void insert(std::string str, int value){
     else if(now < cur) choose = j;
     else break;
   }
-  if(choose == -1) continue;
+  if(choose == -1) return ;
   file.open(file_name, std::ios::in | std::ios::out | std::ios::binary);
   int size = siz[choose], put = 0; file.seekg(head[choose] * sizeof(int), std::ios::beg);
   for(int i = 1; i <= size; ++i){
@@ -154,7 +154,7 @@ void insert(std::string str, int value){
   }
   if(put == -1){
     file.close();
-    continue;
+    return ;
   } 
   for(int i = size; i >= put + 1; --i) temp[i + 1] = temp[i];
   temp[put + 1] = cur; siz[choose] += 1; size += 1;
@@ -224,7 +224,7 @@ void erase(std::string str, int value){
     }
     else if(now < cur) choose = j;
   }
-  if(choose == -1) continue;
+  if(choose == -1) return ;
   file.open(file_name, std::ios::in | std::ios::out | std::ios::binary);
   file.seekg(head[choose] * sizeof(int), std::ios::beg);
   for(int i = 1; i <= siz[choose]; ++i){
@@ -258,5 +258,6 @@ int main(){
       erase(str, value);
     }
   }
+  store();
   return 0;
 }
