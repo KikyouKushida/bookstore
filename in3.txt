@@ -1,0 +1,16 @@
+su root sjtu
+select 1
+modify -ISBN=2
+modify -name="D"
+modify -name="T"
+select 2
+modify -keyword="S|W" -price=50 -author="W"
+modify -price=49.8
+select 3
+modify -name="M" -keyword="R|O" -author="A" -price=45.00
+show -ISBN=1
+show -ISBN=2
+show -name="D"
+show -name="T"
+show -author="W"
+exit

@@ -1,0 +1,8 @@
+su root sjtu
+useradd worker worker_password 3 King-Bailey
+logout
+su worker worker_password
+logout
+register user user_password Griffin,RamirezandRobinson
+su user user_password
+exit
