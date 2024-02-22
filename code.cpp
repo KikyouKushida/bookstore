@@ -92,7 +92,7 @@ void Share_store(){
 }
 
 int main(){
-  freopen("./bookstore-testcases/basic/testcase8/1.in", "r", stdin);
+  //freopen("./bookstore-testcases/basic/testcase8/11.in", "r", stdin);
   //freopen("testcase6.in", "r", stdin);
   //freopen("out.txt", "w", stdout);
   std::string read_in;
@@ -104,7 +104,7 @@ int main(){
     if(read_in.size() == 0) continue;
     if(read_in[read_in.size() - 1] == '\r') read_in.pop_back();
     Deal(read_in, info);
-    printf("%d : \n", ++query_count);
+    //printf("%d : \n", ++query_count);
     //std::cout << (int)read_in[read_in.size() - 1] << " " << read_in << "\n";
     //sleep(0.4);
     if(read_in.size() == 0) continue;
