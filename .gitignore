@@ -1,0 +1,8 @@
+a.sh
+*.exe
+*.txt
+test.cpp
+test
+*.in
+*.ans
+*.out

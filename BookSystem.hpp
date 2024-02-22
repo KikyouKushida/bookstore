@@ -237,6 +237,10 @@ void Create_book(const std::string &ISBN){
 }
 
 void Select_book(const std::string &read_in, const std::vector <interval> &info){
+  if(current_privilege < 3){
+    fail();
+    return ;
+  }
   if(log_in.size() == 0 || info.size() != 2){
     fail();
     return ;
@@ -287,6 +291,10 @@ void Add_book(book &cur){
 }
 
 void Sell_book(const std::string &read_in, const std::vector <interval> &info){
+  if(current_privilege < 1){
+    fail();
+    return ;
+  }
   if(info.size() != 3){
     fail();
     return ;
@@ -306,7 +314,7 @@ void Sell_book(const std::string &read_in, const std::vector <interval> &info){
     return ;
   }
   int quantity = Get_quantity(read_in.substr(info[2].l, info[2].r - info[2].l + 1));
-  if(now.num < quantity){
+  if(now.num < quantity || quantity == 0){
     fail();
     return ;
   }
@@ -321,6 +329,10 @@ void Sell_book(const std::string &read_in, const std::vector <interval> &info){
 }
 
 void Import_book(const std::string &read_in, const std::vector <interval> &info){
+  if(current_privilege < 3){
+    fail();
+    return ;
+  }
   if(info.size() != 3){
     fail();
     return ;
@@ -340,6 +352,10 @@ void Import_book(const std::string &read_in, const std::vector <interval> &info)
   int id = log_in[log_in.size() - 1].select;
   int quantity = Get_quantity(read_in.substr(info[1].l, info[1].r - info[1].l + 1));
   double total_cost = Get_price_or_total_cost(read_in.substr(info[2].l, info[2].r - info[2].l + 1));
+  if(quantity == 0 || total_cost == 0.00){
+    fail();
+    return ;
+  }
   book now(id);
   Erase_book(now);
   now.num += quantity;
@@ -397,7 +413,18 @@ void Show_book_name(const std::string &cur){
   }
   std::vector <int> ids; by_book_name::Find(cur, ids);
   if(ids.size() == 0) printf("\n");
-  else for(auto id: ids) Show_one(id);
+  else {
+    std::vector <std::string> sa; 
+    book tmp; std::string a;
+    for(int i = 0; i < ids.size(); ++i){
+      tmp.read(Book_data, Book_data_name, (ids[i] - 1) * Book_data_Len);
+      a.clear(); int len = strlen(tmp.ISBN);
+      for(int j = 0; j < len; ++j) a += tmp.ISBN[j];
+      sa.push_back(a);
+    }
+    std::sort(sa.begin(), sa.end());
+    for(auto id: sa) Show_one(id);
+  }
   return ;
 }
 
@@ -408,7 +435,18 @@ void Show_author(const std::string &cur){
   }
   std::vector <int> ids; by_author::Find(cur, ids);
   if(ids.size() == 0) printf("\n");
-  else for(auto id: ids) Show_one(id);
+  else {
+    std::vector <std::string> sa; 
+    book tmp; std::string a;
+    for(int i = 0; i < ids.size(); ++i){
+      tmp.read(Book_data, Book_data_name, (ids[i] - 1) * Book_data_Len);
+      a.clear(); int len = strlen(tmp.ISBN);
+      for(int j = 0; j < len; ++j) a += tmp.ISBN[j];
+      sa.push_back(a);
+    }
+    std::sort(sa.begin(), sa.end());
+    for(auto id: sa) Show_one(id);
+  }
   return ;
 }
 
@@ -424,12 +462,23 @@ void Show_key_word(const std::string &cur){
     }
   std::vector <int> ids; by_key_word::Find(cur, ids);
   if(ids.size() == 0) printf("\n");
-  else for(auto id: ids) Show_one(id);
+  else {
+    std::vector <std::string> sa; 
+    book tmp; std::string a;
+    for(int i = 0; i < ids.size(); ++i){
+      tmp.read(Book_data, Book_data_name, (ids[i] - 1) * Book_data_Len);
+      a.clear(); int len = strlen(tmp.ISBN);
+      for(int j = 0; j < len; ++j) a += tmp.ISBN[j];
+      sa.push_back(a);
+    }
+    std::sort(sa.begin(), sa.end());
+    for(auto id: sa) Show_one(id);
+  }
   return ;
 }
 
 void Show_book(const std::string &read_in, const std::vector <interval> &info){
-  if(info.size() != 2){
+  if(info.size() != 2 || current_privilege < 1){
     fail();
     return ;
   }
@@ -452,6 +501,10 @@ int Get_form(const std::string &a){
 }
 
 void Modify_book(const std::string &read_in, const std::vector <interval> &info){
+  if(current_privilege < 3){
+    fail();
+    return ;
+  }
   if(!log_in.size() || log_in[log_in.size() - 1].select == 0){
     fail();
     //printf("f1 %d\n", (int)log_in.size());

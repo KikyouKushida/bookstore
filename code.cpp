@@ -30,6 +30,9 @@ void Deal(std::string &read_in, std::vector <interval> &info){
   return ;
 }
 
+const std::string share_data_name = "share.txt";
+std::fstream share_data;
+
 void Initialize(){
   block::Initialize();
   by_ISBN::Initialize();
@@ -45,12 +48,52 @@ void Initialize(){
     ST.write(Book_data, Book_data_name, 0);
   }
   else ifile.close();
+  ifile.open(share_data_name);
+  if(!ifile){
+    share_data.open(share_data_name, std::ios::out | std::ios::binary);
+    share_data.close();
+  }
+  else {
+    ifile.close();
+    share_data.open(share_data_name, std::ios::in | std::ios::out | std::ios::binary);
+    share_data.seekg(0, std::ios::beg);
+    share_data.read(reinterpret_cast<char *>(&Book_count), 4 * sizeof(char));
+    share_data.read(reinterpret_cast<char *>(&trade_count), 4 * sizeof(char));
+    for(int i = 1; i <= trade_count; ++i){
+      share_data.read(reinterpret_cast<char *>(&f[i]), 8 * sizeof(char));
+      share_data.read(reinterpret_cast<char *>(&g[i]), 8 * sizeof(char));
+    }
+    int size;
+    share_data.read(reinterpret_cast<char *>(&size), 4 * sizeof(char));
+    for(int i = 0; i < size; ++i){
+      log_in.push_back(account());
+      log_in[log_in.size() - 1].simple_read(share_data);
+    }
+    update_current_privilege();
+    share_data.close();
+  }
+  return ;
+}
+
+void Share_store(){
+  share_data.open(share_data_name, std::ios::out | std::ios::binary);
+  share_data.seekp(0, std::ios::beg);
+  share_data.write(reinterpret_cast<char *>(&Book_count), 4 * sizeof(char));
+  share_data.write(reinterpret_cast<char *>(&trade_count), 4 * sizeof(char));
+  for(int i = 1; i <= trade_count; ++i){
+    share_data.write(reinterpret_cast<char *>(&f[i]), 8 * sizeof(char));
+    share_data.write(reinterpret_cast<char *>(&g[i]), 8 * sizeof(char));
+  }
+  int size = (int)log_in.size();
+  share_data.write(reinterpret_cast<char *>(&size), 4 * sizeof(char));
+  for(int i = 0; i < size; ++i) log_in[i].simple_write(share_data);
+  share_data.close();
   return ;
 }
 
 int main(){
-  //freopen("in3.txt", "r", stdin);
-  freopen("testcase6.in", "r", stdin);
+  freopen("./bookstore-testcases/basic/testcase8/1.in", "r", stdin);
+  //freopen("testcase6.in", "r", stdin);
   //freopen("out.txt", "w", stdout);
   std::string read_in;
   std::vector <interval> info;
@@ -63,7 +106,7 @@ int main(){
     Deal(read_in, info);
     printf("%d : \n", ++query_count);
     //std::cout << (int)read_in[read_in.size() - 1] << " " << read_in << "\n";
-    sleep(0.4);
+    //sleep(0.4);
     if(read_in.size() == 0) continue;
     assert(info.size() >= 1);
     if(info[0] == interval(0, 1) && read_in.substr(0, 2) == "su") LogIn_account(read_in, info);
@@ -91,5 +134,6 @@ int main(){
   by_book_name::Store();
   by_author::Store();
   by_key_word::Store();
+  Share_store();
   return 0;
 }

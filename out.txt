@@ -1,12 +1,53 @@
-
-9787559609304	Thompson-Patrick	Weaver-Moreno	Stephens-Moore|WilkinsLLC	49.80	0
-
-9787559609304	Thompson-Patrick	Weaver-Moreno	Stephens-Moore|WilkinsLLC	49.80	0
-9787559609304	Thompson-Patrick	Weaver-Moreno	Stephens-Moore|WilkinsLLC	49.80	0
-
-9787559609304	Thompson-Patrick	Weaver-Moreno	Stephens-Moore|WilkinsLLC	49.80	10
-9787544287722	McclainLLC	Atkins-Summers	RogersGroup|OconnorandSons	45.00	15
-9787559410443	FoxInc	Anderson-Yang	RogersGroup|Irwin-Atkinson	38.00	5
-9787544287722	McclainLLC	Atkins-Summers	RogersGroup|OconnorandSons	45.00	15
-9787559410443	FoxInc	Anderson-Yang	RogersGroup|Irwin-Atkinson	38.00	5
-9787559609304	Thompson-Patrick	Weaver-Moreno	Stephens-Moore|WilkinsLLC	49.80	10
+1 : 
+2 : 
+Invalid
+3 : 
+Invalid
+4 : 
+5 : 
+6 : 
+7 : 
+Invalid
+8 : 
+9 : 
+10 : 
+11 : 
+12 : 
+Invalid
+13 : 
+Invalid
+14 : 
+15 : 
+16 : 
+9787544287723	Cortez,OliverandBall	White,MoralesandHanson	Pittman,TaylorandMartinez|McclureGroup	0.00	48
+17 : 
+0.00
+18 : 
+19 : 
+20 : 
++ 0.00 - 233.33
+21 : 
+22 : 
+23 : 
+24 : 
+25 : 
+1080.00
+26 : 
+Invalid
+27 : 
+28 : 
+29 : 
+30 : 
+31 : 
+32 : 
+33 : 
+34 : 
+9787544287723	Cortez,OliverandBall	White,MoralesandHanson	Pittman,TaylorandMartinez|McclureGroup	40.00	25
+35 : 
+1000.00
+36 : 
+37 : 
+38 : 
++ 2080.00 - 243.33
+39 : 
+40 : 
