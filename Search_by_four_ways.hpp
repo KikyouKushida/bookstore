@@ -10,15 +10,19 @@ char space = ' ';
 std::fstream user_data, list_data, head_data;
 std::string user_data_name = "user_data_1.txt", list_data_name = "list_data_1.txt", head_data_name = "head_data_1.txt";
 
-int head[1005], cnt = 0, siz[1005], nownew = 0;
+int head[10005], cnt = 0, siz[10005], nownew = 0;
 
-book Head_data[1005], temp[1005];
+book Head_data[10005], temp[10005];
 
 void Insert(const book &cur);
 
 void Delete_any(const int &p, const int &q){
   if(siz[p] == 1){
-    for(int i = p; i <= cnt - 1; ++i) Head_data[i] = Head_data[i + 1];
+    for(int i = p; i <= cnt - 1; ++i){
+      Head_data[i] = Head_data[i + 1];
+      siz[i] = siz[i + 1];
+      head[i] = head[i + 1];
+    }
     cnt -= 1;
     return ;
   }
@@ -168,6 +172,7 @@ void Show_all(){
       if(i != 1 || j != 1) Show_one(tmp);
     }
   }
+  user_data.close();
   return ;
 }
 
@@ -180,15 +185,19 @@ char space = ' ';
 std::fstream user_data, list_data, head_data;
 std::string user_data_name = "user_data_2.txt", list_data_name = "list_data_2.txt", head_data_name = "head_data_2.txt";
 
-int head[1005], cnt = 0, siz[1005], nownew = 0;
+int head[10005], cnt = 0, siz[10005], nownew = 0;
 
-book Head_data[1005], temp[1005];
+book Head_data[10005], temp[10005];
 
 void Insert(const book &cur);
 
 void Delete_any(const int &p, const int &q){
   if(siz[p] == 1){
-    for(int i = p; i <= cnt - 1; ++i) Head_data[i] = Head_data[i + 1];
+    for(int i = p; i <= cnt - 1; ++i){
+      Head_data[i] = Head_data[i + 1];
+      siz[i] = siz[i + 1];
+      head[i] = head[i + 1];
+    }
     cnt -= 1;
     return ;
   }
@@ -341,15 +350,19 @@ char space = ' ';
 std::fstream user_data, list_data, head_data;
 std::string user_data_name = "user_data_3.txt", list_data_name = "list_data_3.txt", head_data_name = "head_data_3.txt";
 
-int head[1005], cnt = 0, siz[1005], nownew = 0;
+int head[10005], cnt = 0, siz[10005], nownew = 0;
 
-book Head_data[1005], temp[1005];
+book Head_data[10005], temp[10005];
 
 void Insert(const book &cur);
 
 void Delete_any(const int &p, const int &q){
   if(siz[p] == 1){
-    for(int i = p; i <= cnt - 1; ++i) Head_data[i] = Head_data[i + 1];
+    for(int i = p; i <= cnt - 1; ++i){
+      Head_data[i] = Head_data[i + 1];
+      siz[i] = siz[i + 1];
+      head[i] = head[i + 1];
+    }
     cnt -= 1;
     return ;
   }
@@ -500,15 +513,19 @@ char space = ' ';
 std::fstream user_data, list_data, head_data;
 std::string user_data_name = "user_data_4.txt", list_data_name = "list_data_4.txt", head_data_name = "head_data_4.txt";
 
-int head[1005], cnt = 0, siz[1005], nownew = 0;
+int head[10005], cnt = 0, siz[10005], nownew = 0;
 
-book Head_data[1005], temp[1005];
+book Head_data[10005], temp[10005];
 
 void Insert(const book &cur);
 
 void Delete_any(const int &p, const int &q){
   if(siz[p] == 1){
-    for(int i = p; i <= cnt - 1; ++i) Head_data[i] = Head_data[i + 1];
+    for(int i = p; i <= cnt - 1; ++i){
+      Head_data[i] = Head_data[i + 1];
+      siz[i] = siz[i + 1];
+      head[i] = head[i + 1];
+    }
     cnt -= 1;
     return ;
   }

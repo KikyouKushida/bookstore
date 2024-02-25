@@ -103,15 +103,19 @@ char space = ' ';
 std::fstream user_data, list_data, head_data;
 std::string user_data_name = "user_data.txt", list_data_name = "list_data.txt", head_data_name = "head_data.txt";
 
-int head[1005], cnt = 0, siz[1005], nownew = 0;
+int head[10005], cnt = 0, siz[10005], nownew = 0;
 
-account Head_data[1005], temp[1005];
+account Head_data[10005], temp[10005];
 
 void Insert(const account &cur);
 
 void Delete_any(const int &p, const int &q){
   if(siz[p] == 1){
-    for(int i = p; i <= cnt - 1; ++i) Head_data[i] = Head_data[i + 1];
+    for(int i = p; i <= cnt - 1; ++i){
+      Head_data[i] = Head_data[i + 1];
+      siz[i] = siz[i + 1];
+      head[i] = head[i + 1];
+    }
     cnt -= 1;
     return ;
   }
@@ -136,6 +140,8 @@ void Initialize(){
     head[cnt = 1] = 0, siz[1] = 1, nownew = L * B;
     head_data.open(head_data_name, std::ios::out | std::ios::binary);
     head_data.close();
+    account now("root", "sjtu", "root", 7);
+    Insert(now);
   }
   else {
     ifile.close();
@@ -155,8 +161,6 @@ void Initialize(){
     }
     user_data.close();
   }
-  account now("root", "sjtu", "root", 7);
-  Insert(now);
   return ;
 }
 
@@ -284,6 +288,34 @@ void Update_pass_word(const std::string &user_id, const std::string &new_pass_wo
   return ;
 }
 
+void Update_count(const std::string &user_id, const int &delta){
+  int start = 0, hav = 0;
+  user_data.open(user_data_name, std::ios::in | std::ios::out | std::ios::binary);
+  for(int i = 1; i <= cnt; ++i)
+    if(Head_data[i].user_id <= user_id) start = i;
+    else break;
+  int S = delta;
+  assert(start != 0);
+  account tmp;
+  for(int i = start; i <= start; ++i){
+    user_data.seekg(head[i] * sizeof(char), std::ios::beg);
+    for(int j = 1; j <= siz[i]; ++j){
+      tmp.simple_read(user_data);
+      if(tmp.user_id == user_id){
+        S += tmp.count;
+        user_data.seekp(head[i] * sizeof(char) + (j - 1) * L + 3 * max_len + 4);
+        user_data.write(reinterpret_cast<char *>(&S), 4 * sizeof(char));
+        user_data.close();
+        return ;
+      }
+      if(tmp.user_id > user_id) break;
+    }
+  }
+  printf("fffffffffffffffff\n");
+  user_data.close();
+  return ;
+}
+
 }
 
 bool check_user_id_or_pass_word(const std::string &a){
@@ -348,6 +380,7 @@ void LogIn_account(const std::string &read_in, const std::vector <interval> &inf
     }
     else {
       log_in.push_back(now);
+      block::Update_count(now.user_id, 1);
       update_current_privilege();
       //printf("y4\n");
       return ;
@@ -355,6 +388,7 @@ void LogIn_account(const std::string &read_in, const std::vector <interval> &inf
   }
   if(current_privilege > now.privilege){
     log_in.push_back(now);
+    block::Update_count(now.user_id, 1);
     update_current_privilege();
     return ;
   }
@@ -369,6 +403,7 @@ void LogOut_account(){
     fail();
     return ;
   }
+  block::Update_count(log_in[log_in.size() - 1].user_id, -1);
   log_in.pop_back();
   update_current_privilege();
   return ;
@@ -509,6 +544,10 @@ void Delete_account(const std::string &read_in, const std::vector <interval> &in
   account now; 
   block::get_info(user_id, now);
   if(now.privilege == -1 || now.count > 0){
+    //if(now.count > 0){
+    //  printf("cccccccccccccccc\n");
+    //  printf("%d %d %s\n", now.privilege, now.count, now.user_id);
+    //}
     fail();
     return ;
   }

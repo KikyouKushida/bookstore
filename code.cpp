@@ -1,5 +1,5 @@
 #ifndef include_bits
-#include "share.hpp"
+#include "Share.hpp"
 #define include_bits
 #endif
 
@@ -95,16 +95,21 @@ int main(){
   //freopen("./bookstore-testcases/basic/testcase8/11.in", "r", stdin);
   //freopen("testcase6.in", "r", stdin);
   //freopen("out.txt", "w", stdout);
+  //freopen("testcase3.in", "r", stdin);
   std::string read_in;
   std::vector <interval> info;
   Initialize();
   int query_count = 0;
   while(true){
-    getline(std::cin, read_in);
+    if(!getline(std::cin, read_in)){
+      while(log_in.size()) LogOut_account();
+      break;
+    }
     if(read_in.size() == 0) continue;
     if(read_in[read_in.size() - 1] == '\r') read_in.pop_back();
     Deal(read_in, info);
     //printf("%d : \n", ++query_count);
+    //std::cout << "read_in = " << read_in << "\n";
     //std::cout << (int)read_in[read_in.size() - 1] << " " << read_in << "\n";
     //sleep(0.4);
     if(read_in.size() == 0) continue;
@@ -122,7 +127,10 @@ int main(){
     else if(info[0] == interval(0, 2) && read_in.substr(0, 3) == "buy") Sell_book(read_in, info);
     else if(info[0] == interval(0, 5) && read_in.substr(0, 6) == "import") Import_book(read_in, info);
     else if(info[0] == interval(0, 5) && read_in.substr(0, 6) == "modify") Modify_book(read_in, info);
-    else if(read_in == "exit" || read_in == "quit") break;
+    else if(read_in == "exit" || read_in == "quit"){
+      while(log_in.size()) LogOut_account();
+      break;
+    }
     else if(read_in == "report finance") Report_finance();
     else if(read_in == "report employee") Report_employee();
     else if(read_in == "log") Log();

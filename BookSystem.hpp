@@ -32,7 +32,10 @@ public:
     id = g;
   }
   book(int id){
-    book();
+    for(int i = 0; i < 21; ++i) ISBN[i] = 0;
+    for(int i = 0; i < 61; ++i) book_name[i] = author[i] = key_word[i] = 0;
+    price = 0.00;
+    num = 0ll;
     read(Book_data, Book_data_name, Book_data_Len * (id - 1));
   }
   book &operator=(const book &other){
@@ -540,6 +543,7 @@ void Modify_book(const std::string &read_in, const std::vector <interval> &info)
         fail();
         return ;
       }
+      for(int j = 0; j < 21; ++j) new_one.ISBN[j] = 0;
       Give(new_one.ISBN, new_ISBN);
     }
     else if(form == 1){
@@ -548,6 +552,7 @@ void Modify_book(const std::string &read_in, const std::vector <interval> &info)
         fail();
         return ;
       }
+      for(int j = 0; j < 61; ++j) new_one.book_name[j] = 0;
       Give(new_one.book_name, new_book_name);
     }
     else if(form == 2){
@@ -556,6 +561,7 @@ void Modify_book(const std::string &read_in, const std::vector <interval> &info)
         fail();
         return ;
       }
+      for(int j = 0; j < 61; ++j) new_one.author[j] = 0;
       Give(new_one.author, new_author);
     }
     else if(form == 3){
@@ -566,10 +572,12 @@ void Modify_book(const std::string &read_in, const std::vector <interval> &info)
       }
       std::vector <std::string> new_key_value;
       Get_key_word(new_key_word, new_key_value);
+      //for(auto v : new_key_value) std::cout << "key_value : " << v << "\n";
       if(!check_key_word_2(new_key_value)){
         fail();
         return ;
       }
+      for(int j = 0; j < 61; ++j) new_one.key_word[j] = 0;
       Give(new_one.key_word, new_key_word);
     }
     else if(form == 4){
@@ -586,7 +594,10 @@ void Modify_book(const std::string &read_in, const std::vector <interval> &info)
   //printf("\n");
   //printf("new:"); Show_one(new_one);
   //printf("\n");
+  //std::cout << "Old book:\n";
   Erase_book(old_one);
+  //std::cout << "New book:\n";
+  //Show_one(new_one);
   Add_book(new_one);
   return ;
 }

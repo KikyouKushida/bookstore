@@ -17,7 +17,7 @@ int Get_num(const std::string &a){
 } 
 
 void Show_finance(std::string &read_in, std::vector <interval> &info){
-  if(info.size() < 2 || info.size() > 3){
+  if(info.size() < 2 || info.size() > 3 || current_privilege < 7){
     fail();
     return ;
   }
@@ -40,6 +40,10 @@ void Show_finance(std::string &read_in, std::vector <interval> &info){
 }
 
 void Report_finance(){
+  if(current_privilege < 7){
+    fail();
+    return ;
+  }
   printf("---------------------------------------------------\n\n");
   if(trade_count == 0) printf("You have not completed any bargains.\n");
   else {
@@ -51,6 +55,7 @@ void Report_finance(){
 }
 
 void Report_employee(){
+  
   printf("---------------------------------------------------\n\n");
 
   printf("\n---------------------------------------------------\n");

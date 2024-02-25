@@ -14,4 +14,5 @@ rm head_data_1.txt
 rm head_data_2.txt
 rm head_data_3.txt
 rm head_data_4.txt
+rm share.txt
 
